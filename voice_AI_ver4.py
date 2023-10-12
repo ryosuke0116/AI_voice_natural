@@ -63,15 +63,14 @@ while True:
     print("ロボット: ...")
     try:
         you = robot_ear.recognize_google(audio, language='ja-JP')
+        a = MeCab.Tagger("-Owakati")
+        b=(a.parse(you).split())
+        with open("memo.csv", "a", newline="") as f:
+            writer = csv.writer(f, delimiter=",")
+            writer.writerow(b)
     except sr.UnknownValueError:
         you = "..."
     print("自分: " + you)
-    a = MeCab.Tagger("-Owakati")
-    b=(a.parse(you).split())
-    with open("memo.csv","w",newline="") as f:
-        writer=csv.writer(f)
-        writer.writerow(b)
-    print(you)
     
 
 
